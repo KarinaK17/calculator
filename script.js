@@ -13,7 +13,6 @@ const multiply = function(a, b) {
 
 const divide = function(a, b) {
     if (b===0) {
-        //display.style.cssText="font-size:40px; text-align: center; color: white; background: red;";
         return "OOPS!";
     } else {
         return a/b;
@@ -47,30 +46,30 @@ let result;
 
 digits.forEach(digit=>{
     digit.addEventListener("click", ()=> {
-        if (b==display.textContent) {
+        if (b==display.textContent&&display.textContent.length<13) {
             display.textContent+=digit.innerHTML;
             displayValue+=digit.innerHTML;
             displayValue=Number(displayValue);
             b=displayValue;
             console.log(`b is ${b}`);
-        } else if (operator==undefined) {
+        } else if (operator==undefined&&display.textContent.length<13) {
             if (display.textContent=="0"||display.textContent=="Result is too long!"||result==undefined) {
                 display.textContent="";
                 displayValue=0;
                 result=0;
             }
-
             display.textContent+=digit.innerHTML;
             displayValue+=digit.innerHTML;
             displayValue=Number(displayValue);
             a=displayValue; 
             console.log(`a is ${a}`);
-        } else {
+        } else if (operator!==undefined) {
             display.textContent="";
             display.textContent=digit.innerHTML;
             displayValue=digit.innerHTML;
             displayValue=Number(displayValue);
             b=displayValue; 
+            console.log(`b is ${b}`)
         }
     });
 });
@@ -89,7 +88,6 @@ operators.forEach (sign => {
             result=undefined;
         } else {
             if (b!==undefined) {
-                console.log("b defined working in operators");
                 result=Math.round(operate(operator,a,b)*100)/100;
                 a=result;
                 display.textContent=result;
@@ -105,7 +103,6 @@ operators.forEach (sign => {
                     operator=undefined;
                 }   
             } else {
-                console.log("else working in operators");
                 operator=sign.innerHTML;
                 displayValue=0;
             }
@@ -124,7 +121,7 @@ clear.addEventListener("click", ()=> {
 
 equals.addEventListener("click", ()=> {
 
-    console.log(`Operator, a, b ${operator}, ${a}, ${b}`);
+    console.log(`Operator is '${operator}', a is ${a}, b is ${b}`);
     console.log(`Result of the operate function is ${operate(operator, a, b)}`);
     
     if (a!==undefined&&b!==undefined&&operator!==undefined) {
@@ -147,7 +144,7 @@ equals.addEventListener("click", ()=> {
             }
             
             resultForDisplay=result.toString();
-            console.log(`length is ${resultForDisplay.length}`);
+            console.log(`The length of the displayed number is ${resultForDisplay.length} digits`);
             if (resultForDisplay.length>13) {
                 display.textContent='Result is too long!';
                 a=undefined;
@@ -160,7 +157,7 @@ equals.addEventListener("click", ()=> {
 });
 
 smile.addEventListener("click", ()=> {
-    alert ("HAVE A NICE DAY!");
+    alert ("HAVE A NICE DAY!!!");
 });
 
 

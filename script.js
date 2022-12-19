@@ -40,10 +40,10 @@ const operators=document.querySelectorAll(".operator");
 
 let displayValue=0;
 display.textContent="0";
-let a=0;
+let a;
 let b;
 let operator;
-let result=0;
+let result;
 
 digits.forEach(digit=>{
     digit.addEventListener("click", ()=> {
@@ -54,9 +54,12 @@ digits.forEach(digit=>{
             b=displayValue;
             console.log(`b is ${b}`);
         } else if (operator==undefined) {
-            if (display.textContent=="0"||display.textContent=="Result is too long!") {
+            if (display.textContent=="0"||display.textContent=="Result is too long!"||result==undefined) {
                 display.textContent="";
+                displayValue=0;
+                result=0;
             }
+
             display.textContent+=digit.innerHTML;
             displayValue+=digit.innerHTML;
             displayValue=Number(displayValue);
@@ -111,13 +114,12 @@ clear.addEventListener("click", ()=> {
 });
 
 equals.addEventListener("click", ()=> {
-    
-    b=displayValue;
+
     console.log(`Operator, a, b ${operator}, ${a}, ${b}`);
     console.log(`Result of the operate function is ${operate(operator, a, b)}`);
-    //console.log(add(a, b));
-    //display.textContent=add(a, b);
     
+    if (a!==undefined&&b!==undefined&&operator!==undefined) {
+
     result=Math.round(operate(operator,a,b)*100)/100;
     display.textContent=result;
     displayValue=result;
@@ -128,8 +130,6 @@ equals.addEventListener("click", ()=> {
         displayValue=0;
         a=undefined;
         b=undefined;
-        result=0;
-        operator=undefined;
     }
     
     resultForDisplay=result.toString();
@@ -139,12 +139,10 @@ equals.addEventListener("click", ()=> {
         displayValue=0;
         a=undefined;
         b=undefined;
-        result=0;
-        operator=undefined;
     }
-
-    
-    
+    result=undefined;
+    operator=undefined;
+}
 });
 
 smile.addEventListener("click", ()=> {
